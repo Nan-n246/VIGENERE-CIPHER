@@ -1,9 +1,7 @@
 # VIGENERE-CIPHER
 ## EX. NO: 4
  
-
-## IMPLEMETATION OF VIGENERE CIPHER
- 
+## IMPLEMETATION OF VIGENERE CIPHER 
 
 ## AIM:
 
@@ -31,79 +29,29 @@ STEP-8: Repeat the above steps to generate the entire cipher text.
 
 ## PROGRAM
 ```
+
 #include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-
-// Function to encrypt the text using Vigenère cipher
-void encrypt(char* plaintext, char* key, char* ciphertext) {
-    int textLen = strlen(plaintext);
-    int keyLen = strlen(key);
-
-    for (int i = 0, j = 0; i < textLen; i++) {
-        char p = plaintext[i];
-
-        if (isalpha(p)) {
-            char base = isupper(p) ? 'A' : 'a';
-            char k = tolower(key[j % keyLen]) - 'a';
-            ciphertext[i] = (p - base + k) % 26 + base;
-            j++;
-        } else {
-            ciphertext[i] = p;
-        }
-    }
-
-    ciphertext[textLen] = '\0';
-}
-
-// Function to decrypt the text using Vigenère cipher
-void decrypt(char* ciphertext, char* key, char* plaintext) {
-    int textLen = strlen(ciphertext);
-    int keyLen = strlen(key);
-
-    for (int i = 0, j = 0; i < textLen; i++) {
-        char c = ciphertext[i];
-
-        if (isalpha(c)) {
-            char base = isupper(c) ? 'A' : 'a';
-            char k = tolower(key[j % keyLen]) - 'a';
-            plaintext[i] = (c - base - k + 26) % 26 + base;
-            j++;
-        } else {
-            plaintext[i] = c;
-        }
-    }
-
-    plaintext[textLen] = '\0';
-}
-
-int main() {
-    char plaintext[1024];
-    char key[1024];
-    char ciphertext[1024];
-    char decrypted[1024];
-
-    printf("Enter plaintext: ");
-    fgets(plaintext, sizeof(plaintext), stdin);
-    plaintext[strcspn(plaintext, "\n")] = '\0';
-
-    printf("Enter key (alphabetic only): ");
-    fgets(key, sizeof(key), stdin);
-    key[strcspn(key, "\n")] = '\0';
-
-    encrypt(plaintext, key, ciphertext);
-    printf("Encrypted text: %s\n", ciphertext);
-
-    decrypt(ciphertext, key, decrypted);
-    printf("Decrypted text: %s\n", decrypted);
-
-    return 0;
-}
+ #include <string.h>
+ void vigenereCipher(char *text, char *key, int decrypt) {
+ int len = strlen(text), keyLen = strlen(key);
+ for (int i = 0; i < len; i++) {
+ int shift = key[i % keyLen]- 'A';
+ text[i] = 'A' + (text[i]- 'A' + (decrypt ? 26- shift : shift)) % 26;
+ }
+ }
+ int main() {
+ char text[] = "NANDHINI", key[] = "KEY";
+ vigenereCipher(text, key, 0);
+ printf("Encrypted Message: %s\n", text);
+ vigenereCipher(text, key, 1);
+ printf("Decrypted Message: %s\n", text);
+ return 0;
+ }
 ```
 
 ## OUTPUT
+<img width="1674" height="1024" alt="Screenshot 2026-05-17 155109" src="https://github.com/user-attachments/assets/748532ea-02cc-45c5-8989-a3e81d2289ec" />
 
-<img width="696" height="301" alt="Screenshot 2026-05-11 155653" src="https://github.com/user-attachments/assets/026c788d-c50b-4cb8-9ba4-c79a80d4f843" />
 
 ## RESULT
 Implementation of Vigenere Cipher substitution technique using C program is sucessfulyy verified.
